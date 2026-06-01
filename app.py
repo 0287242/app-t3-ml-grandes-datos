@@ -243,7 +243,7 @@ if st.button("Procesar siguiente archivo"):
 # =========================================================
 st.markdown("---")
 st.subheader("Estado actual del modelo")
-st.write(f"Siguiente índice a procesar: **{st.session_state.index}**")
+st.write(f"Archivos procesados: **{st.session_state.index}**")
 st.write(f"R² acumulado actual: **{metric_r2.get():.4f}**")
 st.write(f"MAE acumulado actual: **{metric_mae.get():.4f}**")
 
@@ -254,8 +254,14 @@ if st.session_state.history_r2:
         "MAE_archivo": st.session_state.history_file_mae,
         "R2_acumulado": st.session_state.history_r2,
         "MAE_acumulado": st.session_state.history_mae,
+        "filas_procesadas": limite
     })
     st.subheader("Historial de procesamiento")
     st.dataframe(df_hist)
-    st.subheader("Evolución de métricas acumuladas")
-    st.line_chart(df_hist[["R2_acumulado", "MAE_acumulado"]])
+    st.subheader("Evolución R2 acumulado")
+    st.line_chart(df_hist[["R2_acumulado"]])
+
+    st.subheader("Evolución MAE acumulado")
+    st.line_chart(df_hist[["MAE_acumulado"]])
+
+st.caption("Cloud Run + River • Dataset público de taxis NYC")
